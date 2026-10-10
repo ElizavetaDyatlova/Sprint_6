@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from pages.main_page import MainPage
@@ -31,8 +32,10 @@ ORDER_DATA = [
 ]
 
 
+@allure.feature("Заказ самоката")
 class TestOrder:
 
+    @allure.title("Успешный заказ через {data[entry]} кнопку")
     @pytest.mark.parametrize("data", ORDER_DATA)
     def test_order_scooter_success(self, driver, data):
         main_page = MainPage(driver)

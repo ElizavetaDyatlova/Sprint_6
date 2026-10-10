@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -9,6 +10,7 @@ class OrderPage:
     def __init__(self, driver):
         self.driver = driver
 
+    @allure.step("Заполнить шаг 1 «Для кого самокат»")
     def fill_first_step(self, name, surname, address, metro, phone):
         self.driver.find_element(*OrderPageLocators.INPUT_NAME).send_keys(name)
         self.driver.find_element(*OrderPageLocators.INPUT_SURNAME).send_keys(surname)
@@ -16,6 +18,7 @@ class OrderPage:
         self._select_metro(metro)
         self.driver.find_element(*OrderPageLocators.INPUT_PHONE).send_keys(phone)
 
+    @allure.step("Выбрать станцию метро «{metro}»")
     def _select_metro(self, metro):
         field = self.driver.find_element(*OrderPageLocators.INPUT_METRO)
         field.click()
@@ -28,9 +31,11 @@ class OrderPage:
             expected_conditions.element_to_be_clickable(option_locator)
         ).click()
 
+    @allure.step("Нажать «Далее»")
     def click_next(self):
         self.driver.find_element(*OrderPageLocators.BUTTON_NEXT).click()
 
+    @allure.step("Заполнить шаг 2 «Про аренду»")
     def fill_second_step(self, date, rental_period, color, comment=""):
         date_field = self.driver.find_element(*OrderPageLocators.INPUT_DATE)
         date_field.send_keys(date)
@@ -53,14 +58,17 @@ class OrderPage:
         if comment:
             self.driver.find_element(*OrderPageLocators.INPUT_COMMENT).send_keys(comment)
 
+    @allure.step("Нажать «Заказать» на шаге 2")
     def click_order(self):
         self.driver.find_element(*OrderPageLocators.BUTTON_ORDER).click()
 
+    @allure.step("Подтвердить заказ кнопкой «Да»")
     def confirm_order(self):
         WebDriverWait(self.driver, 5).until(
             expected_conditions.element_to_be_clickable(OrderPageLocators.BUTTON_CONFIRM_YES)
         ).click()
 
+    @allure.step("Дождаться окна «Заказ оформлен»")
     def wait_for_success_modal(self):
         WebDriverWait(self.driver, 5).until(
             expected_conditions.visibility_of_element_located(
@@ -68,5 +76,6 @@ class OrderPage:
             )
         )
 
+    @allure.step("Получить текст окна")
     def get_success_modal_text(self):
         return self.driver.find_element(*OrderPageLocators.MODAL_SUCCESS_TITLE).text

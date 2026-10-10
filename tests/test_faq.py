@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from pages.main_page import MainPage
@@ -22,8 +23,10 @@ FAQ_DATA = [
 ]
 
 
+@allure.feature("Выпадающий список «Вопросы о важном»")
 class TestFaq:
 
+    @allure.title("Проверка ответа на вопрос: {question}")
     @pytest.mark.parametrize("question, expected_answer", FAQ_DATA)
     def test_faq_answer(self, driver, question, expected_answer):
         page = MainPage(driver)
