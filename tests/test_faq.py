@@ -30,7 +30,7 @@ class TestFaq:
     @pytest.mark.parametrize("question, expected_answer", FAQ_DATA)
     def test_faq_answer(self, driver, question, expected_answer):
         page = MainPage(driver)
-        page.open()
+        page.open_main()
         page.wait_for_load()
         page.click_question_arrow(question)
         page.wait_for_answer(question)

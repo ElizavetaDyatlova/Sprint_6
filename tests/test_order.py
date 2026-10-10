@@ -39,7 +39,7 @@ class TestOrder:
     @pytest.mark.parametrize("data", ORDER_DATA)
     def test_order_scooter_success(self, driver, data):
         main_page = MainPage(driver)
-        main_page.open()
+        main_page.open_main()
 
         if data["entry"] == "top":
             main_page.click_order_button_top()

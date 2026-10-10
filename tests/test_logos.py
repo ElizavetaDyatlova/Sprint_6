@@ -10,7 +10,7 @@ class TestLogos:
     @allure.title("Клик по логотипу «Самокат» ведёт на главную")
     def test_logo_scooter_goes_to_main(self, driver):
         main_page = MainPage(driver)
-        main_page.open()
+        main_page.open_main()
         main_page.wait_for_load()
         main_page.click_logo_scooter()
         assert driver.current_url == "https://qa-scooter.praktikum-services.ru/"
@@ -18,7 +18,7 @@ class TestLogos:
     @allure.title("Клик по логотипу «Яндекс» открывает Дзен в новой вкладке")
     def test_logo_yandex_opens_dzen_in_new_tab(self, driver):
         main_page = MainPage(driver)
-        main_page.open()
+        main_page.open_main()
         main_page.wait_for_load()
 
         original_handles = driver.window_handles
