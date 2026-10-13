@@ -40,11 +40,7 @@ class TestOrder:
     def test_order_scooter_success(self, driver, data):
         main_page = MainPage(driver)
         main_page.open_main()
-
-        if data["entry"] == "top":
-            main_page.click_order_button_top()
-        else:
-            main_page.click_order_button_bottom()
+        main_page.click_order_button(data["entry"])
 
         order_page = OrderPage(driver)
         order_page.fill_first_step(
